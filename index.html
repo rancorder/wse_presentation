@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>WSE Local Presenter - Video 06 08</title>
+<title>WSE Local Presenter - Auto MP4</title>
 <style>
 :root{--bg:#05070c;--panel:#0c1728;--ink:#f7fbff;--muted:#9baec7;--line:rgba(255,255,255,.12);--orange:#ff7a1a;--orange2:#ffb36a;--green:#39dd94;--red:#ff626a;--blue:#37cfff}
 *{box-sizing:border-box;margin:0;padding:0}html,body,#app{width:100%;height:100%;overflow:hidden}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;background:radial-gradient(circle at 80% 10%,rgba(255,122,26,.14),transparent 28%),linear-gradient(135deg,#03050a,#081426 55%,#020407);color:var(--ink)}button{font:inherit}
 .stage{position:relative;width:100%;height:100%;background:#020407;overflow:hidden}.stage:before{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.55))}.stage:after{content:"";position:absolute;inset:34px;z-index:5;pointer-events:none;border:1px solid rgba(255,255,255,.09)}
 .progressTrack{position:absolute;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);z-index:10}.progress{height:100%;width:11.111%;background:linear-gradient(90deg,var(--orange),#f3c65f);box-shadow:0 0 22px rgba(255,122,26,.75);transition:.25s}
-.media{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#020407}.media.active{display:flex}.media img,.media video{width:100%;height:100%;object-fit:contain;background:#020407}.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.18),transparent 16%,transparent 84%,rgba(0,0,0,.18))}
+.media{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#020407}.media.active{display:flex}.media img,.media video{width:100%;height:100%;object-fit:contain;background:#020407;display:none}.media.active.use-image img{display:block}.media.active.use-video video{display:block}.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.18),transparent 16%,transparent 84%,rgba(0,0,0,.18))}
 .hud{position:absolute;left:58px;top:48px;z-index:7;display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.58);font-size:12px;letter-spacing:.1em;font-weight:900;text-shadow:0 1px 8px #000}.logo{height:38px;min-width:74px;display:grid;place-items:center;color:#fff;letter-spacing:.22em;border:1px solid rgba(255,122,26,.5);background:linear-gradient(135deg,rgba(255,122,26,.25),rgba(255,122,26,.06));box-shadow:0 0 26px rgba(255,122,26,.22)}
 .counter{position:absolute;right:58px;bottom:48px;z-index:7;color:rgba(255,255,255,.58);font-size:13px;letter-spacing:.14em;font-weight:900}.vflag{position:absolute;right:58px;top:52px;z-index:7;color:var(--orange2);font-size:12px;font-weight:900;letter-spacing:.14em;display:none}.vflag.on{display:block}
 .vctrl{position:absolute;left:58px;bottom:48px;z-index:8;display:flex;gap:8px;opacity:.16;transition:.18s}.vctrl:hover{opacity:1}.vctrl button,.audOverlay button{border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.42);color:#fff;padding:8px 10px;cursor:pointer;font-size:12px;font-weight:900}
@@ -27,28 +27,98 @@
 <div id="app"></div>
 <script>
 const slides=[
-{type:"image",src:"assets/slide01.png",title:"01 表紙",first:"本日、一番お伝えしたいのは、WSEは単に図面を描く会社ではなく、現場を理解して治具・ライン設計を進める設計パートナーだという点です。",talk:"まずは全体像として、対応領域は治具設計・ライン設計・シミュレーションです。見た目の説明より、後工程で手戻りを出さない設計姿勢を伝えます。",point:"会社紹介で長くしない。次の問題提起につなぐ。",ask:"現在、設計外注で一番負担になっているのはどこですか？"},
-{type:"image",src:"assets/slide02.png",title:"02 外注したのに社内工数が増えていませんか？",first:"外注したのに、なぜか社内確認や修正指示が増えてしまう。ここが今回の一番大きな論点です。",talk:"設計の手戻り、納期遅れ、品質のばらつき、担当者依存。これらは外注先の技術だけではなく、設計の進め方で起きます。",point:"ここは問題提起。『確認工数を増やさない設計外注』に着地させる。",ask:"御社でも、外注後の確認・修正指示が重くなることはありますか？"},
-{type:"image",src:"assets/slide03.png",title:"03 WSEの強み",first:"WSEは、治具・ライン設計に特化したプロフェッショナル集団です。",talk:"納期遵守、間違いの少なさ、3D段階での成立性確認、21名体制、STEP/DWG対応。この5つを、単なる機能ではなく社内工数を減らす条件として見せます。",point:"数字・体制・納品形式を一気に信頼材料に変える。",ask:"外注先に求める条件として、品質・納期・確認工数のどれが一番大きいですか？"},
-{type:"image",src:"assets/slide04.png",title:"04 設計条件・成立性・納期まで事前に検討",first:"WSEでは、設計条件、成立性、納期までを事前に検討してから進めます。",talk:"設計条件ヒアリング、3D成立性確認、図面化・納品の流れで、後から発生するズレを最小化します。",point:"工程説明ではなく『事前に潰す』を強調する。",ask:"発注前に条件や必要資料が完全に揃っていない案件はありますか？"},
-{type:"image",src:"assets/slide05.png",title:"05 WSEの設計プロセス",first:"WSEの設計プロセスは、ヒアリングから納品・サポートまでを一連で管理します。",talk:"ヒアリング・条件整理、3D設計・検証、図面化・指示書、納品・サポート。この流れで品質と納期をコントロールします。",point:"4ステップを短く説明し、手戻り最小化へつなぐ。",ask:"現在の外注先では、3D段階の成立性確認まで入っていますか？"},
-{type:"video",src:"assets/slide06.mp4",poster:"assets/slide06.png",loop:true,title:"06 事実で見るWSE（動画）",first:"ここでは、WSEの体制と対応範囲を事実ベースで確認いただきます。",talk:"設計体制21名、Inventor/AutoCAD、STEP/DWG、治具設計、ライン設計、シミュレーション。動画が入る場合は、静止画の説明ではなく『実務で動く設計体制』として見せます。",point:"動画は“実物感”を出すため。長く説明せず、体制と対応範囲へ戻す。",ask:"御社で外に切り出しやすいのは、治具設計・ライン設計・シミュレーションのどれに近いですか？"},
-{type:"image",src:"assets/slide07.png",title:"07 WSEが力を発揮する領域",first:"WSEが特に力を発揮するのは、品質を安定させたい設計領域です。",talk:"溶接治具設計、ライン設計、量産立ち上げ支援、複雑形状・高精度案件、部分外注・設計応援。一方で、短納期や手戻り削減の相談が多い課題にも対応します。",point:"対応領域と顧客課題をつなげる。",ask:"この中で、今いちばん近い課題はどれですか？"},
-{type:"video",src:"assets/slide08.mp4",poster:"assets/slide08.png",loop:true,title:"08 設計例（動画）",first:"こちらは設計例です。WSEは治具単体だけでなく、ライン設備側の設計にも対応します。",talk:"溶接治具設計例とライン設備設計例を見せ、位置決め、クランプ、工程全体の最適化まで想起させます。動画でジグの回転や動きが見える場合は、2D図面では伝わりにくい成立性確認を伝えます。",point:"細部説明に入りすぎず、対応イメージを持ってもらう。",ask:"御社で近いのは、治具単体の設計ですか？ライン設備側の設計ですか？"},
-{type:"image",src:"assets/slide09.png",title:"09 まずは1案件からご相談ください",first:"最後に一つだけ確認させてください。御社の中に、設計者が抱えているけれど外に出せていない案件はありますか？",talk:"もしあれば、まず設計のみで切り出せる1案件をお聞かせください。弊社側で対応可否と進め方をご提案します。",point:"売り込まず、案件有無の確認で終える。次に何を出してもらうかを明確化する。",ask:"候補案件がある場合、図面・仕様・過去データのどれから確認するのが進めやすいですか？"}
-];
-const params=new URLSearchParams(location.search),isAud=params.get("view")==="audience";let cur=parseInt(location.hash.replace("#s",""),10);if(isNaN(cur)||cur<0||cur>=slides.length)cur=0;let aud=null,start=Date.now();const ch=("BroadcastChannel"in window)?new BroadcastChannel("wse-video-0608-sync-v1"):null;
-function media(s,i){let a=i===cur?" active":"";return s.type==="video"?`<div class="media${a}"><video data-v="${i}" src="${s.src}" poster="${s.poster||""}" muted playsinline preload="auto" ${s.loop?"loop":""}></video><div class="shade"></div></div>`:`<div class="media${a}"><img src="${s.src}" alt="${s.title}"><div class="shade"></div></div>`}
-function stage(){return`<div class="stage"><div class="progressTrack"><div class="progress"></div></div>${slides.map(media).join("")}<div class="hud"><div class="logo">WSE</div><div>LOCAL PRESENTATION<br>VIDEO 06 / 08</div></div><div class="vflag">VIDEO / AUTO LOOP</div><div class="counter">01 / 09</div><div class="vctrl"><button onclick="restartVideo()">動画を最初から</button><button onclick="toggleVideo()">停止/再生</button></div></div>`}
-function setSlide(n,src="local"){if(n<0||n>=slides.length)return;cur=n;document.querySelectorAll(".media").forEach((m,i)=>m.classList.toggle("active",i===cur));document.querySelectorAll(".progress").forEach(p=>p.style.width=((cur+1)/slides.length*100)+"%");document.querySelectorAll(".counter").forEach(c=>c.textContent=String(cur+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0"));document.querySelectorAll(".vflag").forEach(f=>f.classList.toggle("on",slides[cur].type==="video"));document.querySelectorAll(".cue").forEach((c,i)=>c.classList.toggle("active",i===cur));resetVideos();let ac=document.querySelector(".cue.active");if(ac&&src==="local")ac.scrollIntoView({block:"center",behavior:"smooth"});history.replaceState(null,"","#s"+cur);if(!isAud&&src!=="remote")sync()}
-function resetVideos(){document.querySelectorAll("video").forEach(v=>{let i=parseInt(v.dataset.v,10);try{if(i===cur){v.pause();v.currentTime=0;let p=v.play();if(p&&p.catch)p.catch(()=>{})}else{v.pause();v.currentTime=0}}catch(e){}})}
+{base:"slide01",title:"01 表紙",first:"本日、一番お伝えしたいのは、WSEは単に図面を描く会社ではなく、現場を理解して治具・ライン設計を進める設計パートナーだという点です。",talk:"まずは全体像として、対応領域は治具設計・ライン設計・シミュレーションです。見た目の説明より、後工程で手戻りを出さない設計姿勢を伝えます。",point:"会社紹介で長くしない。次の問題提起につなぐ。",ask:"現在、設計外注で一番負担になっているのはどこですか？"},
+{base:"slide02",title:"02 外注したのに社内工数が増えていませんか？",first:"外注したのに、なぜか社内確認や修正指示が増えてしまう。ここが今回の一番大きな論点です。",talk:"設計の手戻り、納期遅れ、品質のばらつき、担当者依存。これらは外注先の技術だけではなく、設計の進め方で起きます。",point:"ここは問題提起。『確認工数を増やさない設計外注』に着地させる。",ask:"御社でも、外注後の確認・修正指示が重くなることはありますか？"},
+{base:"slide03",title:"03 WSEの強み",first:"WSEは、治具・ライン設計に特化したプロフェッショナル集団です。",talk:"納期遵守、間違いの少なさ、3D段階での成立性確認、21名体制、STEP/DWG対応。この5つを、単なる機能ではなく社内工数を減らす条件として見せます。",point:"数字・体制・納品形式を一気に信頼材料に変える。",ask:"外注先に求める条件として、品質・納期・確認工数のどれが一番大きいですか？"},
+{base:"slide04",title:"04 設計条件・成立性・納期まで事前に検討",first:"WSEでは、設計条件、成立性、納期までを事前に検討してから進めます。",talk:"設計条件ヒアリング、3D成立性確認、図面化・納品の流れで、後から発生するズレを最小化します。",point:"工程説明ではなく『事前に潰す』を強調する。",ask:"発注前に条件や必要資料が完全に揃っていない案件はありますか？"},
+{base:"slide05",title:"05 WSEの設計プロセス",first:"WSEの設計プロセスは、ヒアリングから納品・サポートまでを一連で管理します。",talk:"ヒアリング・条件整理、3D設計・検証、図面化・指示書、納品・サポート。この流れで品質と納期をコントロールします。",point:"4ステップを短く説明し、手戻り最小化へつなぐ。",ask:"現在の外注先では、3D段階の成立性確認まで入っていますか？"},
+{base:"slide06",title:"06 事実で見るWSE",first:"ここでは、WSEの体制と対応範囲を事実ベースで確認いただきます。",talk:"設計体制21名、Inventor/AutoCAD、STEP/DWG、治具設計、ライン設計、シミュレーション。動画が入る場合は、静止画の説明ではなく『実務で動く設計体制』として見せます。",point:"動画は“実物感”を出すため。長く説明せず、体制と対応範囲へ戻す。",ask:"御社で外に切り出しやすいのは、治具設計・ライン設計・シミュレーションのどれに近いですか？"},
+{base:"slide07",title:"07 WSEが力を発揮する領域",first:"WSEが特に力を発揮するのは、品質を安定させたい設計領域です。",talk:"溶接治具設計、ライン設計、量産立ち上げ支援、複雑形状・高精度案件、部分外注・設計応援。一方で、短納期や手戻り削減の相談が多い課題にも対応します。",point:"対応領域と顧客課題をつなげる。",ask:"この中で、今いちばん近い課題はどれですか？"},
+{base:"slide08",title:"08 設計例",first:"こちらは設計例です。WSEは治具単体だけでなく、ライン設備側の設計にも対応します。",talk:"溶接治具設計例とライン設備設計例を見せ、位置決め、クランプ、工程全体の最適化まで想起させます。動画でジグの回転や動きが見える場合は、2D図面では伝わりにくい成立性確認を伝えます。",point:"細部説明に入りすぎず、対応イメージを持ってもらう。",ask:"御社で近いのは、治具単体の設計ですか？ライン設備側の設計ですか？"},
+{base:"slide09",title:"09 まずは1案件からご相談ください",first:"最後に一つだけ確認させてください。御社の中に、設計者が抱えているけれど外に出せていない案件はありますか？",talk:"もしあれば、まず設計のみで切り出せる1案件をお聞かせください。弊社側で対応可否と進め方をご提案します。",point:"売り込まず、案件有無の確認で終える。次に何を出してもらうかを明確化する。",ask:"候補案件がある場合、図面・仕様・過去データのどれから確認するのが進めやすいですか？"}
+].map(s=>({ ...s, image:`assets/${s.base}.png`, video:`assets/${s.base}.mp4`, hasVideo:false, checked:false }));
+
+const params=new URLSearchParams(location.search),isAud=params.get("view")==="audience";let cur=parseInt(location.hash.replace("#s",""),10);if(isNaN(cur)||cur<0||cur>=slides.length)cur=0;let aud=null,start=Date.now();const ch=("BroadcastChannel"in window)?new BroadcastChannel("wse-auto-mp4-sync-v1"):null;
+
+function media(s,i){let a=i===cur?" active":"";return`<div class="media use-image${a}" data-i="${i}"><img src="${s.image}" alt="${s.title}"><video data-v="${i}" src="${s.video}" poster="${s.image}" muted playsinline preload="metadata" loop></video><div class="shade"></div></div>`}
+function stage(){return`<div class="stage"><div class="progressTrack"><div class="progress"></div></div>${slides.map(media).join("")}<div class="hud"><div class="logo">WSE</div><div>LOCAL PRESENTATION<br>AUTO MP4 DETECTION</div></div><div class="vflag">VIDEO / AUTO DETECTED</div><div class="counter">01 / 09</div><div class="vctrl"><button onclick="restartVideo()">動画を最初から</button><button onclick="toggleVideo()">停止/再生</button></div></div>`}
+
+function initVideoDetection(){
+  document.querySelectorAll("video[data-v]").forEach(v=>{
+    const i=parseInt(v.dataset.v,10), s=slides[i], wrap=v.closest(".media");
+    v.addEventListener("loadedmetadata",()=>{
+      s.hasVideo=true; s.checked=true;
+      if(wrap) wrap.dataset.hasVideo="true";
+      updateMediaClasses();
+      if(i===cur) playCurrentVideo();
+      updateCueMediaLabels();
+    },{once:true});
+    v.addEventListener("error",()=>{
+      s.hasVideo=false; s.checked=true;
+      if(wrap) wrap.dataset.hasVideo="false";
+      updateMediaClasses();
+      updateCueMediaLabels();
+    },{once:true});
+    try{ v.load(); }catch(e){}
+  });
+}
+
+function updateMediaClasses(){
+  document.querySelectorAll(".media").forEach((m,i)=>{
+    const active=i===cur;
+    const useVideo=active && slides[i].hasVideo;
+    m.classList.toggle("active",active);
+    m.classList.toggle("use-video",useVideo);
+    m.classList.toggle("use-image",!useVideo);
+  });
+  document.querySelectorAll(".vflag").forEach(f=>f.classList.toggle("on",slides[cur]&&slides[cur].hasVideo));
+}
+
+function setSlide(n,src="local"){
+  if(n<0||n>=slides.length)return;
+  cur=n;
+  updateMediaClasses();
+  document.querySelectorAll(".progress").forEach(p=>p.style.width=((cur+1)/slides.length*100)+"%");
+  document.querySelectorAll(".counter").forEach(c=>c.textContent=String(cur+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0"));
+  document.querySelectorAll(".cue").forEach((c,i)=>c.classList.toggle("active",i===cur));
+  resetVideos();
+  let ac=document.querySelector(".cue.active");if(ac&&src==="local")ac.scrollIntoView({block:"center",behavior:"smooth"});
+  history.replaceState(null,"","#s"+cur);
+  if(!isAud&&src!=="remote")sync();
+}
+
+function resetVideos(){
+  document.querySelectorAll("video").forEach(v=>{
+    let i=parseInt(v.dataset.v,10);
+    try{
+      if(i===cur && slides[i].hasVideo){v.pause();v.currentTime=0;let p=v.play();if(p&&p.catch)p.catch(()=>{})}
+      else{v.pause();v.currentTime=0}
+    }catch(e){}
+  });
+}
+function playCurrentVideo(){document.querySelectorAll(`video[data-v="${cur}"]`).forEach(v=>{try{let p=v.play();if(p&&p.catch)p.catch(()=>{})}catch(e){}})}
 function restartVideo(){document.querySelectorAll(`video[data-v="${cur}"]`).forEach(v=>{try{v.pause();v.currentTime=0;v.play()}catch(e){}})}
 function toggleVideo(){document.querySelectorAll(`video[data-v="${cur}"]`).forEach(v=>{v.paused?v.play():v.pause()})}
-function sync(){let m={type:"wse-slide",slide:cur,at:Date.now()};if(aud&&!aud.closed)aud.postMessage(m,"*");if(ch)ch.postMessage(m);try{localStorage.setItem("wse-video-0608-sync-v1",JSON.stringify(m))}catch(e){}}
-function openAud(){let u=new URL(location.href);u.searchParams.set("view","audience");u.hash="s"+cur;aud=window.open(u.toString(),"WSE_AUDIENCE_VIDEO_0608","popup=yes,width=1440,height=900");setTimeout(sync,300);let st=document.getElementById("audStatus");if(st)st.innerHTML=aud?"顧客表示：<b>別ウィンドウ起動済み。この別ウィンドウだけ共有。</b>":"顧客表示：<b>ポップアップがブロックされています。</b>"}
+function sync(){let m={type:"wse-slide",slide:cur,at:Date.now()};if(aud&&!aud.closed)aud.postMessage(m,"*");if(ch)ch.postMessage(m);try{localStorage.setItem("wse-auto-mp4-sync-v1",JSON.stringify(m))}catch(e){}}
+function openAud(){let u=new URL(location.href);u.searchParams.set("view","audience");u.hash="s"+cur;aud=window.open(u.toString(),"WSE_AUDIENCE_AUTO_MP4","popup=yes,width=1440,height=900");setTimeout(sync,300);let st=document.getElementById("audStatus");if(st)st.innerHTML=aud?"顧客表示：<b>別ウィンドウ起動済み。この別ウィンドウだけ共有。</b>":"顧客表示：<b>ポップアップがブロックされています。</b>"}
 function fs(){if(!document.fullscreenElement&&document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();else if(document.exitFullscreen)document.exitFullscreen()}
-function presenter(){document.getElementById("app").innerHTML=`<div class="presenter"><div class="previewPane"><div class="notice">発表者ビュー：この画面は共有しない</div><div class="previewShell">${stage()}</div></div><aside class="panel"><div class="head"><h1>WSE ローカル台本操作型プレゼン</h1><p>動画スライドを06・08に修正済み。顧客には別ウィンドウだけ共有。</p></div><div class="warn">⚠ この画面を共有すると台本が見えます。「顧客表示を開く」で開いた別ウィンドウだけ共有してください。</div><div class="controls"><button class="primary" id="open">顧客表示を開く</button><button id="full">全画面</button></div><div class="controls"><button id="prev">← 前へ</button><button id="next">次へ →</button></div><div class="controls"><button id="rv">動画を最初から</button><button id="copy">質問をコピー</button></div><div class="status"><div id="audStatus">顧客表示：<b>未起動</b></div><div>経過時間：<b class="timer" id="timer">00:00</b></div><div>操作：Space / → 次へ、← 前へ、1〜9 指定、R 動画再開</div></div><div class="cues">${slides.map((s,i)=>`<article class="cue" data-i="${i}"><div class="cueTop"><div><div class="cueNo">${String(i+1).padStart(2,"0")} / ${s.type.toUpperCase()}</div><div class="cueTitle">${s.title}</div></div><span class="badge">${String(i+1).padStart(2,"0")}</span></div><div class="mediaType">${s.type==="video"?"VIDEO SLIDE / 自動再生":"IMAGE SLIDE"}</div><div class="sec"><div class="lab">一言目</div><div class="txt strong">${s.first}</div></div><div class="sec"><div class="lab">補足説明</div><div class="txt">${s.talk}</div></div><div class="sec"><div class="lab">押さえるポイント</div><div class="tiny">${s.point}</div></div><div class="sec"><div class="lab">相手に投げる質問</div><div class="txt ask">${s.ask}</div></div></article>`).join("")}</div></aside></div>`;document.querySelectorAll(".cue").forEach(c=>c.onclick=()=>setSlide(parseInt(c.dataset.i,10)));document.getElementById("open").onclick=openAud;document.getElementById("full").onclick=fs;document.getElementById("prev").onclick=()=>setSlide(cur-1);document.getElementById("next").onclick=()=>setSlide(cur+1);document.getElementById("rv").onclick=restartVideo;document.getElementById("copy").onclick=async()=>{try{await navigator.clipboard.writeText(slides[cur].ask)}catch(e){alert(slides[cur].ask)}};setInterval(()=>{let sec=Math.floor((Date.now()-start)/1000),m=String(Math.floor(sec/60)).padStart(2,"0"),s=String(sec%60).padStart(2,"0"),t=document.getElementById("timer");if(t)t.textContent=`${m}:${s}`},500);setSlide(cur,"remote")}
-function audience(){document.getElementById("app").innerHTML=stage();let o=document.createElement("div");o.className="audOverlay";o.innerHTML='<button onclick="fs()">全画面</button><button onclick="restartVideo()">動画再開</button>';document.body.appendChild(o);window.onmessage=e=>{if(e.data&&e.data.type==="wse-slide")setSlide(e.data.slide,"remote")};if(ch)ch.onmessage=e=>{if(e.data&&e.data.type==="wse-slide")setSlide(e.data.slide,"remote")};window.addEventListener("storage",e=>{if(e.key==="wse-video-0608-sync-v1"&&e.newValue){try{let m=JSON.parse(e.newValue);if(m.type==="wse-slide")setSlide(m.slide,"remote")}catch(_){}}});setSlide(cur,"remote")}
+
+function mediaStatusText(i){
+  if(slides[i].hasVideo) return "VIDEO DETECTED / MP4自動再生";
+  if(slides[i].checked) return "IMAGE SLIDE / MP4なし";
+  return "AUTO CHECKING / MP4検出中";
+}
+function updateCueMediaLabels(){
+  document.querySelectorAll(".mediaType").forEach((el,i)=>el.textContent=mediaStatusText(i));
+}
+
+function presenter(){document.getElementById("app").innerHTML=`<div class="presenter"><div class="previewPane"><div class="notice">発表者ビュー：この画面は共有しない</div><div class="previewShell">${stage()}</div></div><aside class="panel"><div class="head"><h1>WSE ローカル台本操作型プレゼン</h1><p>MP4自動検出版。<code>assets/slideXX.mp4</code> があれば動画、なければPNGを表示。</p></div><div class="warn">⚠ この画面を共有すると台本が見えます。「顧客表示を開く」で開いた別ウィンドウだけ共有してください。</div><div class="controls"><button class="primary" id="open">顧客表示を開く</button><button id="full">全画面</button></div><div class="controls"><button id="prev">← 前へ</button><button id="next">次へ →</button></div><div class="controls"><button id="rv">動画を最初から</button><button id="copy">質問をコピー</button></div><div class="status"><div id="audStatus">顧客表示：<b>未起動</b></div><div>経過時間：<b class="timer" id="timer">00:00</b></div><div>操作：Space / → 次へ、← 前へ、1〜9 指定、R 動画再開</div><div>自動判定：<b>slideXX.mp4 が存在すれば動画扱い</b></div></div><div class="cues">${slides.map((s,i)=>`<article class="cue" data-i="${i}"><div class="cueTop"><div><div class="cueNo">${String(i+1).padStart(2,"0")} / AUTO</div><div class="cueTitle">${s.title}</div></div><span class="badge">${String(i+1).padStart(2,"0")}</span></div><div class="mediaType">${mediaStatusText(i)}</div><div class="sec"><div class="lab">一言目</div><div class="txt strong">${s.first}</div></div><div class="sec"><div class="lab">補足説明</div><div class="txt">${s.talk}</div></div><div class="sec"><div class="lab">押さえるポイント</div><div class="tiny">${s.point}</div></div><div class="sec"><div class="lab">相手に投げる質問</div><div class="txt ask">${s.ask}</div></div></article>`).join("")}</div></aside></div>`;
+  document.querySelectorAll(".cue").forEach(c=>c.onclick=()=>setSlide(parseInt(c.dataset.i,10)));
+  document.getElementById("open").onclick=openAud;document.getElementById("full").onclick=fs;document.getElementById("prev").onclick=()=>setSlide(cur-1);document.getElementById("next").onclick=()=>setSlide(cur+1);document.getElementById("rv").onclick=restartVideo;document.getElementById("copy").onclick=async()=>{try{await navigator.clipboard.writeText(slides[cur].ask)}catch(e){alert(slides[cur].ask)}};
+  setInterval(()=>{let sec=Math.floor((Date.now()-start)/1000),m=String(Math.floor(sec/60)).padStart(2,"0"),s=String(sec%60).padStart(2,"0"),t=document.getElementById("timer");if(t)t.textContent=`${m}:${s}`},500);
+  initVideoDetection(); setSlide(cur,"remote");
+}
+function audience(){document.getElementById("app").innerHTML=stage();let o=document.createElement("div");o.className="audOverlay";o.innerHTML='<button onclick="fs()">全画面</button><button onclick="restartVideo()">動画再開</button>';document.body.appendChild(o);window.onmessage=e=>{if(e.data&&e.data.type==="wse-slide")setSlide(e.data.slide,"remote")};if(ch)ch.onmessage=e=>{if(e.data&&e.data.type==="wse-slide")setSlide(e.data.slide,"remote")};window.addEventListener("storage",e=>{if(e.key==="wse-auto-mp4-sync-v1"&&e.newValue){try{let m=JSON.parse(e.newValue);if(m.type==="wse-slide")setSlide(m.slide,"remote")}catch(_){}}});initVideoDetection();setSlide(cur,"remote")}
 document.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key===" "||e.key==="PageDown"){e.preventDefault();setSlide(cur+1)}if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();setSlide(cur-1)}if(/^[1-9]$/.test(e.key))setSlide(parseInt(e.key,10)-1);if(e.key.toLowerCase()==="r")restartVideo();if(e.key.toLowerCase()==="f"&&isAud)fs()});
 isAud?audience():presenter();
 </script>
